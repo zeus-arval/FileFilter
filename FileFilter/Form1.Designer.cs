@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.openFileExplorerButton = new System.Windows.Forms.Button();
             this.fileNameLabel = new System.Windows.Forms.Label();
-            this.fileContentTextBox = new System.Windows.Forms.TextBox();
             this.configureFilterButton = new System.Windows.Forms.Button();
+            this.fileContentListBox = new System.Windows.Forms.ListBox();
+            this.filterButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -41,12 +43,11 @@
             // 
             // openFileExplorerButton
             // 
-            this.openFileExplorerButton.Location = new System.Drawing.Point(14, 16);
-            this.openFileExplorerButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.openFileExplorerButton.MaximumSize = new System.Drawing.Size(145, 31);
-            this.openFileExplorerButton.MinimumSize = new System.Drawing.Size(145, 31);
+            this.openFileExplorerButton.Location = new System.Drawing.Point(12, 12);
+            this.openFileExplorerButton.MaximumSize = new System.Drawing.Size(127, 23);
+            this.openFileExplorerButton.MinimumSize = new System.Drawing.Size(127, 23);
             this.openFileExplorerButton.Name = "openFileExplorerButton";
-            this.openFileExplorerButton.Size = new System.Drawing.Size(145, 31);
+            this.openFileExplorerButton.Size = new System.Drawing.Size(127, 23);
             this.openFileExplorerButton.TabIndex = 0;
             this.openFileExplorerButton.Text = "Open File Exporer";
             this.openFileExplorerButton.UseVisualStyleBackColor = true;
@@ -55,51 +56,61 @@
             // fileNameLabel
             // 
             this.fileNameLabel.AutoSize = true;
-            this.fileNameLabel.Location = new System.Drawing.Point(165, 21);
-            this.fileNameLabel.MinimumSize = new System.Drawing.Size(150, 0);
+            this.fileNameLabel.Location = new System.Drawing.Point(144, 16);
+            this.fileNameLabel.MinimumSize = new System.Drawing.Size(131, 0);
             this.fileNameLabel.Name = "fileNameLabel";
-            this.fileNameLabel.Size = new System.Drawing.Size(150, 20);
+            this.fileNameLabel.Size = new System.Drawing.Size(131, 15);
             this.fileNameLabel.TabIndex = 1;
             this.fileNameLabel.Text = "C:/Program files/";
             // 
-            // fileContentTextBox
-            // 
-            this.fileContentTextBox.AcceptsReturn = true;
-            this.fileContentTextBox.AcceptsTab = true;
-            this.fileContentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fileContentTextBox.BackColor = System.Drawing.Color.White;
-            this.fileContentTextBox.Location = new System.Drawing.Point(14, 73);
-            this.fileContentTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.fileContentTextBox.Multiline = true;
-            this.fileContentTextBox.Name = "fileContentTextBox";
-            this.fileContentTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.fileContentTextBox.Size = new System.Drawing.Size(886, 509);
-            this.fileContentTextBox.TabIndex = 2;
-            this.fileContentTextBox.WordWrap = false;
-            // 
             // configureFilterButton
             // 
-            this.configureFilterButton.Location = new System.Drawing.Point(592, 21);
-            this.configureFilterButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.configureFilterButton.Location = new System.Drawing.Point(518, 16);
             this.configureFilterButton.Name = "configureFilterButton";
-            this.configureFilterButton.Size = new System.Drawing.Size(123, 31);
+            this.configureFilterButton.Size = new System.Drawing.Size(108, 23);
             this.configureFilterButton.TabIndex = 3;
             this.configureFilterButton.Text = "Configure filter";
             this.configureFilterButton.UseVisualStyleBackColor = true;
             this.configureFilterButton.Click += new System.EventHandler(this.configureFilterButton_Click);
             // 
+            // fileContentListBox
+            // 
+            this.fileContentListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fileContentListBox.FormattingEnabled = true;
+            this.fileContentListBox.ItemHeight = 15;
+            this.fileContentListBox.Location = new System.Drawing.Point(12, 51);
+            this.fileContentListBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.fileContentListBox.Name = "fileContentListBox";
+            this.fileContentListBox.ScrollAlwaysVisible = true;
+            this.fileContentListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.fileContentListBox.Size = new System.Drawing.Size(778, 394);
+            this.fileContentListBox.TabIndex = 4;
+            this.fileContentListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileContentListBox_KeyDown);
+            // 
+            // filterButton
+            // 
+            this.filterButton.Location = new System.Drawing.Point(645, 16);
+            this.filterButton.Name = "filterButton";
+            this.filterButton.Size = new System.Drawing.Size(108, 23);
+            this.filterButton.TabIndex = 5;
+            this.filterButton.Text = "Filter";
+            this.filterButton.UseVisualStyleBackColor = true;
+            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.filterButton);
+            this.Controls.Add(this.fileContentListBox);
             this.Controls.Add(this.configureFilterButton);
-            this.Controls.Add(this.fileContentTextBox);
             this.Controls.Add(this.fileNameLabel);
             this.Controls.Add(this.openFileExplorerButton);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "FilterProgram";
             this.ResumeLayout(false);
@@ -112,8 +123,8 @@
         private OpenFileDialog openFileDialog;
         private Button openFileExplorerButton;
         private Label fileNameLabel;
-        private TextBox fileContent;
         private Button configureFilterButton;
-        private TextBox fileContentTextBox;
+        private ListBox fileContentListBox;
+        private Button filterButton;
     }
 }

@@ -31,6 +31,7 @@
             this.addLinePatternButton = new System.Windows.Forms.Button();
             this.linePatternTextBox = new System.Windows.Forms.TextBox();
             this.patternsListBox = new System.Windows.Forms.ListBox();
+            this.removePatternLinesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addLinePatternButton
@@ -61,11 +62,23 @@
             this.patternsListBox.Size = new System.Drawing.Size(412, 264);
             this.patternsListBox.TabIndex = 3;
             // 
+            // removePatternLinesButton
+            // 
+            this.removePatternLinesButton.Location = new System.Drawing.Point(18, 245);
+            this.removePatternLinesButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.removePatternLinesButton.Name = "removePatternLinesButton";
+            this.removePatternLinesButton.Size = new System.Drawing.Size(129, 31);
+            this.removePatternLinesButton.TabIndex = 4;
+            this.removePatternLinesButton.Text = "Remove Patterns";
+            this.removePatternLinesButton.UseVisualStyleBackColor = true;
+            this.removePatternLinesButton.Click += new System.EventHandler(this.removePatternLinesButton_Click);
+            // 
             // FilterConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 297);
+            this.Controls.Add(this.removePatternLinesButton);
             this.Controls.Add(this.patternsListBox);
             this.Controls.Add(this.linePatternTextBox);
             this.Controls.Add(this.addLinePatternButton);
@@ -84,5 +97,6 @@
         private Button addLinePatternButton;
         private TextBox linePatternTextBox;
         internal ListBox patternsListBox;
+        private Button removePatternLinesButton;
     }
 }
