@@ -1,3 +1,4 @@
+using FileFilter.Aids;
 using System;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
@@ -13,6 +14,7 @@ namespace FileFilter
         private FilterConfigurationForm _filterConfigurationForm;
         private ListBox.ObjectCollection PatternsObjectCollection { get; set; }
         public List<string> FileContent { get; set; }
+        public List<string> FilteredContent { get; set; }
 
 
         public Form1()
@@ -58,27 +60,30 @@ namespace FileFilter
                     {
                         using (StreamReader reader = new StreamReader(file))
                         {
-                            FileContent = new();
-                            FilterContent((loopCallback) =>
+                            Safety.Run(() =>
                             {
-                                string pattern = CreatePattern();
-                                Regex regex = new(pattern);
-                                string? line = string.Empty;
+                                FileContent = new();
+                                FilterContent((loopCallback) =>
+                                {
+                                    string pattern = CreatePattern();
+                                    Regex regex = new(pattern);
+                                    string? line = string.Empty;
 
-                                if (pattern != string.Empty)
-                                {
-                                    while ((line = reader.ReadLine()) != null)
+                                    if (pattern != string.Empty)
                                     {
-                                        loopCallback(line);
+                                        while ((line = reader.ReadLine()) != null)
+                                        {
+                                            loopCallback(line);
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    while ((line = reader.ReadLine()) != null)
+                                    else
                                     {
-                                        FileContent.Add(string.Format("{0}{1}", line, Environment.NewLine));
+                                        while ((line = reader.ReadLine()) != null)
+                                        {
+                                            FileContent.Add(string.Format("{0}{1}", line, Environment.NewLine));
+                                        }
                                     }
-                                }
+                                });
                             });
                         }
                     }
@@ -104,13 +109,22 @@ namespace FileFilter
             {
                 if (regex.IsMatch(line))
                 {
-                    FileContent.Add(string.Format("{0}{1}", line, Environment.NewLine));
+                    FilteredContent.Add(string.Format("{0}{1}", line, Environment.NewLine));
                 }
             });
 
             Invoke(() =>
             {
-                var collection = new ListBox.ObjectCollection(fileContentListBox, FileContent.ToArray());
+                ListBox.ObjectCollection collection;
+                if (pattern != string.Empty)
+                {
+                    collection = new ListBox.ObjectCollection(fileContentListBox, FilteredContent.ToArray());
+                }
+                else
+                {
+                    collection = new ListBox.ObjectCollection(fileContentListBox, FileContent.ToArray());
+                }
+
                 fileContentListBox.Items.Clear();
                 fileContentListBox.Items.AddRange(collection);
             });
@@ -153,26 +167,31 @@ namespace FileFilter
             {
                 PatternsObjectCollection = patterns;
             };
-
         }
 
         private void filterButton_Click(object sender, EventArgs e)
         {
-            if (FileContent.Count == 0) return;
-
-            List<string> nonFilteredFileContent = FileContent;
-            FileContent = new List<string>();
-            string pattern = CreatePattern();
-            if (pattern is null) return;
-
-            FilterContent((loopCallback) =>
+            Task.Run(() =>
             {
-                Regex regex = new(pattern);
-
-                foreach(string line in nonFilteredFileContent)
+                Safety.Run(() =>
                 {
-                    loopCallback(line);
-                }
+                    if (FileContent.Count == 0) return;
+
+                    List<string> nonFilteredFileContent = FileContent;
+                    FilteredContent = new List<string>();
+                    string pattern = CreatePattern();
+                    if (pattern is null) return;
+
+                    FilterContent((loopCallback) =>
+                    {
+                        Regex regex = new(pattern);
+
+                        foreach (string line in nonFilteredFileContent)
+                        {
+                            loopCallback(line);
+                        }
+                    });
+                });
             });
         }
 
@@ -207,7 +226,20 @@ namespace FileFilter
 
         private void fileContentListBox_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
+        }
+
+        private void removeFiltersButton_Click(object sender, EventArgs e)
+        {
+            Safety.Run(() =>
+            {
+                if (FileContent.Count == 0) return;
+
+                var fileContentCollection = new ListBox.ObjectCollection(fileContentListBox, FileContent.ToArray());
+
+                fileContentListBox.Items.Clear();
+                fileContentListBox.Items.AddRange(fileContentCollection);
+            });   
         }
     }
 }
