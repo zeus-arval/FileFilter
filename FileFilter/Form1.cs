@@ -204,5 +204,10 @@ namespace FileFilter
                 }
             }
         }
+
+        private void fileContentListBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            
+        }
     }
 }
