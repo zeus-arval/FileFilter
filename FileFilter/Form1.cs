@@ -27,6 +27,7 @@ namespace FileFilter
 
             fileNameLabel.Text = INITIAL_FILE_NAME;
             FileContent = new List<string>();
+            FilteredContent = new List<string>();
         }
 
         private void InitializeFileDialog()
@@ -74,6 +75,7 @@ namespace FileFilter
                                         while ((line = reader.ReadLine()) != null)
                                         {
                                             loopCallback(line);
+                                            FileContent.Add(string.Format("{0}{1}", line, Environment.NewLine));
                                         }
                                     }
                                     else

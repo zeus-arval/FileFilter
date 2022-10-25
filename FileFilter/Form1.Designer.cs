@@ -44,11 +44,12 @@
             // 
             // openFileExplorerButton
             // 
-            this.openFileExplorerButton.Location = new System.Drawing.Point(12, 12);
-            this.openFileExplorerButton.MaximumSize = new System.Drawing.Size(127, 23);
-            this.openFileExplorerButton.MinimumSize = new System.Drawing.Size(127, 23);
+            this.openFileExplorerButton.Location = new System.Drawing.Point(14, 21);
+            this.openFileExplorerButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.openFileExplorerButton.MaximumSize = new System.Drawing.Size(145, 31);
+            this.openFileExplorerButton.MinimumSize = new System.Drawing.Size(145, 31);
             this.openFileExplorerButton.Name = "openFileExplorerButton";
-            this.openFileExplorerButton.Size = new System.Drawing.Size(127, 23);
+            this.openFileExplorerButton.Size = new System.Drawing.Size(145, 31);
             this.openFileExplorerButton.TabIndex = 0;
             this.openFileExplorerButton.Text = "Open File Exporer";
             this.openFileExplorerButton.UseVisualStyleBackColor = true;
@@ -57,18 +58,19 @@
             // fileNameLabel
             // 
             this.fileNameLabel.AutoSize = true;
-            this.fileNameLabel.Location = new System.Drawing.Point(144, 16);
-            this.fileNameLabel.MinimumSize = new System.Drawing.Size(131, 0);
+            this.fileNameLabel.Location = new System.Drawing.Point(165, 26);
+            this.fileNameLabel.MinimumSize = new System.Drawing.Size(150, 0);
             this.fileNameLabel.Name = "fileNameLabel";
-            this.fileNameLabel.Size = new System.Drawing.Size(131, 15);
+            this.fileNameLabel.Size = new System.Drawing.Size(150, 20);
             this.fileNameLabel.TabIndex = 1;
             this.fileNameLabel.Text = "C:/Program files/";
             // 
             // configureFilterButton
             // 
-            this.configureFilterButton.Location = new System.Drawing.Point(518, 16);
+            this.configureFilterButton.Location = new System.Drawing.Point(592, 21);
+            this.configureFilterButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.configureFilterButton.Name = "configureFilterButton";
-            this.configureFilterButton.Size = new System.Drawing.Size(108, 23);
+            this.configureFilterButton.Size = new System.Drawing.Size(123, 31);
             this.configureFilterButton.TabIndex = 3;
             this.configureFilterButton.Text = "Configure filter";
             this.configureFilterButton.UseVisualStyleBackColor = true;
@@ -93,9 +95,10 @@
             // 
             // filterButton
             // 
-            this.filterButton.Location = new System.Drawing.Point(632, 16);
+            this.filterButton.Location = new System.Drawing.Point(722, 21);
+            this.filterButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(46, 23);
+            this.filterButton.Size = new System.Drawing.Size(53, 31);
             this.filterButton.TabIndex = 5;
             this.filterButton.Text = "Filter";
             this.filterButton.UseVisualStyleBackColor = true;
@@ -103,19 +106,35 @@
             // 
             // removeFiltersButton
             // 
-            this.removeFiltersButton.Location = new System.Drawing.Point(684, 16);
+            this.removeFiltersButton.Location = new System.Drawing.Point(782, 21);
+            this.removeFiltersButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.removeFiltersButton.Name = "removeFiltersButton";
-            this.removeFiltersButton.Size = new System.Drawing.Size(104, 23);
+            this.removeFiltersButton.Size = new System.Drawing.Size(119, 31);
             this.removeFiltersButton.TabIndex = 6;
             this.removeFiltersButton.Text = "Remove Filters";
             this.removeFiltersButton.UseVisualStyleBackColor = true;
             this.removeFiltersButton.Click += new System.EventHandler(this.removeFiltersButton_Click);
             // 
+            // fileContentListBox
+            // 
+            this.fileContentListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fileContentListBox.FormattingEnabled = true;
+            this.fileContentListBox.ItemHeight = 20;
+            this.fileContentListBox.Location = new System.Drawing.Point(14, 68);
+            this.fileContentListBox.Name = "fileContentListBox";
+            this.fileContentListBox.ScrollAlwaysVisible = true;
+            this.fileContentListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.fileContentListBox.Size = new System.Drawing.Size(889, 524);
+            this.fileContentListBox.TabIndex = 4;
+            this.fileContentListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileContentListBox_KeyDown);
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.Controls.Add(this.highlightsButton);
             this.Controls.Add(this.removeFiltersButton);
             this.Controls.Add(this.filterButton);
             this.Controls.Add(this.fileContentListBox);
@@ -124,6 +143,7 @@
             this.Controls.Add(this.openFileExplorerButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "FilterProgram";
             this.ResumeLayout(false);
