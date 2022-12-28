@@ -7,27 +7,34 @@ using System.Xml.Linq;
 
 namespace FileFilter
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private const string INITIAL_FILE_NAME = @"C:\";
 
         private FilterConfigurationForm _filterConfigurationForm;
+        private HighlightsConfigurationForm _highlightsConfigurationForm;
         private ListBox.ObjectCollection PatternsObjectCollection { get; set; }
         public List<string> FileContent { get; set; }
         public List<string> FilteredContent { get; set; }
 
-
-        public Form1()
-        {
+        public MainForm()
+        { 
             InitializeComponent();
             InitializeFileDialog();
             InitializeFilterConfigurationForm();
+            InitializeHighlitingForm();
 
             PatternsObjectCollection = new ListBox.ObjectCollection(_filterConfigurationForm!.patternsListBox);
 
             fileNameLabel.Text = INITIAL_FILE_NAME;
             FileContent = new List<string>();
             FilteredContent = new List<string>();
+            
+        }
+
+        private void InitializeHighlitingForm()
+        {
+            _highlightsConfigurationForm = new HighlightsConfigurationForm();
         }
 
         private void InitializeFileDialog()
@@ -46,7 +53,7 @@ namespace FileFilter
 
         private void FillFileContent()
         {
-            fileContentListBox.ForeColor = Color.Black;
+            fileContentListView.ForeColor = Color.Black;
 
             ReadFile();
         }
@@ -94,8 +101,8 @@ namespace FileFilter
                 {
                     Invoke(() =>
                     {
-                        fileContentListBox.ForeColor = Color.Red;
-                        fileContentListBox.Items.Add(ex.Message);
+                        fileContentListView.ForeColor = Color.Red;
+                        fileContentListView.Items.Add(ex.Message);
                     });
                 }
             });
@@ -117,18 +124,20 @@ namespace FileFilter
 
             Invoke(() =>
             {
-                ListBox.ObjectCollection collection;
+                ListView.ListViewItemCollection collection;
                 if (pattern != string.Empty)
                 {
-                    collection = new ListBox.ObjectCollection(fileContentListBox, FilteredContent.ToArray());
+                    collection = new ListView.ListViewItemCollection(fileContentListView);
+                    collection.AddRange(FilteredContent.Select(x => new ListViewItem(x)).ToArray());
                 }
                 else
                 {
-                    collection = new ListBox.ObjectCollection(fileContentListBox, FileContent.ToArray());
+                    collection = new ListView.ListViewItemCollection(fileContentListView);
+                    collection.AddRange(FileContent.Select(x => new ListViewItem(x)).ToArray());
                 }
 
-                fileContentListBox.Items.Clear();
-                fileContentListBox.Items.AddRange(collection);
+                fileContentListView.Items.Clear();
+                fileContentListView.Items.AddRange(collection);
             });
         }
 
@@ -158,7 +167,7 @@ namespace FileFilter
 
         private void configureFilterButton_Click(object sender, EventArgs e)
         {
-            InitializeFilterConfigurationForm();
+            //InitializeFilterConfigurationForm();
             _filterConfigurationForm.Show();
         }
 
@@ -201,7 +210,7 @@ namespace FileFilter
         {
             if (keyData == Keys.Escape)
             {
-                fileContentListBox.SelectedItems.Clear();
+                fileContentListView.SelectedItems.Clear();
             }
 
             return base.ProcessDialogKey(keyData);
@@ -213,7 +222,7 @@ namespace FileFilter
             {
                 string s = string.Empty;
 
-                foreach(var line in fileContentListBox.SelectedItems)
+                foreach(var line in fileContentListView.SelectedItems)
                 {
                     s += line.ToString();
                 }
@@ -221,14 +230,9 @@ namespace FileFilter
                 if (s != string.Empty)
                 {
                     Clipboard.SetText(s);
-                    fileContentListBox.SelectedItems.Clear();
+                    fileContentListView.SelectedItems.Clear();
                 }
             }
-        }
-
-        private void fileContentListBox_MouseDown(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void removeFiltersButton_Click(object sender, EventArgs e)
@@ -237,11 +241,17 @@ namespace FileFilter
             {
                 if (FileContent.Count == 0) return;
 
-                var fileContentCollection = new ListBox.ObjectCollection(fileContentListBox, FileContent.ToArray());
+                var fileContentCollection = new ListView.ListViewItemCollection(fileContentListView);
+                fileContentCollection.AddRange(FileContent.Select(x => new ListViewItem(x)).ToArray());
 
-                fileContentListBox.Items.Clear();
-                fileContentListBox.Items.AddRange(fileContentCollection);
+                fileContentListView.Items.Clear();
+                fileContentListView.Items.AddRange(fileContentCollection);
             });   
+        }
+
+        private void highlightsButton_Click(object sender, EventArgs e)
+        {
+            _highlightsConfigurationForm.Visible = true;
         }
     }
 }

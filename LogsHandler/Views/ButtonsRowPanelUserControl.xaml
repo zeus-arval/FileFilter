@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="LogsHandler.MVVM.ButtonsRowPanelUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="30">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Menu">
+                <Setter Property="BorderBrush" Value="White"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Selector.Background" Value="White"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="White"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="MenuItem" x:Key="innerMenuItem">
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Selector.Background" Value="White"/>
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border Background="LightGray" BorderThickness="1">
+
+        <Grid>
+            <StackPanel Orientation="Horizontal" Background="White">
+                <Menu>
+                    <MenuItem Header="File">
+                        <MenuItem Style="{StaticResource innerMenuItem}" Click="OpenFile_Click" Header="Open file"/>
+                        <MenuItem Style="{StaticResource innerMenuItem}" Command="{Binding OpenRecentFileCommand}" Header="Open recent file"/>
+                        <MenuItem Style="{StaticResource innerMenuItem}" Command="{Binding ExitCommand}" Header="Exit"/>
+                    </MenuItem>
+                </Menu>
+                <Menu>
+                    <MenuItem Header="Edit">
+                        <!--<MenuItem Header="Save"/>
+                        <MenuItem Header="Save as"/>-->
+                    </MenuItem>
+                </Menu>
+                <Menu>
+                    <MenuItem Header="View">
+                        <!--<MenuItem Header="Save"/>
+                        <MenuItem Header="Save as"/>-->
+                    </MenuItem>
+                </Menu>
+                <Menu>
+                    <MenuItem Header="Preferences">
+                        <MenuItem Style="{StaticResource innerMenuItem}" Command="{Binding OpenHighlightingCommand}" Header="Highlightings"/>
+                        <MenuItem Style="{StaticResource innerMenuItem}" Command="{Binding OpenOptionsCommand}" Header="Options"/>
+                    </MenuItem>
+                </Menu>
+                <Menu>
+                    <MenuItem Header="Help">
+                        <MenuItem Style="{StaticResource innerMenuItem}" Command="{Binding AboutFileFilterCommand}" Header="About"/>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
