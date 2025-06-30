@@ -1,9 +1,11 @@
 using FileFilter.Aids;
 using System;
+using System.Data;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.ListBox;
 
 namespace FileFilter
 {
@@ -18,7 +20,7 @@ namespace FileFilter
         public List<string> FilteredContent { get; set; }
 
         public MainForm()
-        { 
+        {
             InitializeComponent();
             InitializeFileDialog();
             InitializeFilterConfigurationForm();
@@ -29,7 +31,6 @@ namespace FileFilter
             fileNameLabel.Text = INITIAL_FILE_NAME;
             FileContent = new List<string>();
             FilteredContent = new List<string>();
-            
         }
 
         private void InitializeHighlitingForm()
@@ -42,23 +43,31 @@ namespace FileFilter
             openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = INITIAL_FILE_NAME;
             openFileDialog.Title = "Choose a file to filter";
-            openFileDialog.FileOk += (sender, a) =>
+            openFileDialog.FileOk += async (sender, a) =>
             {
                 string name = openFileDialog.FileName;
                 fileNameLabel.Text = name;
 
-                FillFileContent();
+                await FillFileContent();
             };
         }
 
-        private void FillFileContent()
+        private async Task FillFileContent()
         {
-            fileContentListView.ForeColor = Color.Black;
+            linesListBox.ForeColor = Color.Black;
 
-            ReadFile();
+            await ReadFile();
+            linesListBox.BeginUpdate();
+            linesListBox.Items.Clear();
+            (FilteredContent.Count > 0 ? FilteredContent : FileContent).ForEach(x => linesListBox.Items.Add(x));
+            linesListBox.EndUpdate();
+            //var listBoxCollection = new ListBox.ObjectCollection(linesListBox);
+            //listBoxCollection.Clear();
+            //listBoxCollection.AddRange((FilteredContent.Count > 0 ? FilteredContent : FileContent).ToArray());
+            //linesListBox.Items.AddRange(listBoxCollection);
         }
 
-        private async void ReadFile()
+        private async Task ReadFile()
         {
             await Task.Run(() =>
             {
@@ -101,8 +110,8 @@ namespace FileFilter
                 {
                     Invoke(() =>
                     {
-                        fileContentListView.ForeColor = Color.Red;
-                        fileContentListView.Items.Add(ex.Message);
+                        linesListBox.ForeColor = Color.Red;
+                        linesListBox.Items.Add(ex.Message);
                     });
                 }
             });
@@ -113,6 +122,7 @@ namespace FileFilter
             string pattern = CreatePattern();
             Regex regex = new(pattern);
             string? line = string.Empty;
+            FilteredContent = new List<string>();
 
             loopCallback(line =>
             {
@@ -120,24 +130,6 @@ namespace FileFilter
                 {
                     FilteredContent.Add(string.Format("{0}{1}", line, Environment.NewLine));
                 }
-            });
-
-            Invoke(() =>
-            {
-                ListView.ListViewItemCollection collection;
-                if (pattern != string.Empty)
-                {
-                    collection = new ListView.ListViewItemCollection(fileContentListView);
-                    collection.AddRange(FilteredContent.Select(x => new ListViewItem(x)).ToArray());
-                }
-                else
-                {
-                    collection = new ListView.ListViewItemCollection(fileContentListView);
-                    collection.AddRange(FileContent.Select(x => new ListViewItem(x)).ToArray());
-                }
-
-                fileContentListView.Items.Clear();
-                fileContentListView.Items.AddRange(collection);
             });
         }
 
@@ -202,6 +194,14 @@ namespace FileFilter
                             loopCallback(line);
                         }
                     });
+
+                    Invoke(() => 
+                    {
+                        linesListBox.BeginUpdate();
+                        linesListBox.Items.Clear();
+                        (FilteredContent.Count > 0 ? FilteredContent : FileContent).ForEach(x => linesListBox.Items.Add(x));
+                        linesListBox.EndUpdate();
+                    });
                 });
             });
         }
@@ -210,28 +210,32 @@ namespace FileFilter
         {
             if (keyData == Keys.Escape)
             {
-                fileContentListView.SelectedItems.Clear();
+                linesListBox.SelectedItems.Clear();
             }
 
             return base.ProcessDialogKey(keyData);
         }
 
-        private void fileContentListBox_KeyDown(object sender, KeyEventArgs e)
+        private void linesListBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.C)
             {
-                string s = string.Empty;
-
-                foreach(var line in fileContentListView.SelectedItems)
+                Invoke(() =>
                 {
-                    s += line.ToString();
-                }
+                    string s = string.Empty;
+                    var selected = new SelectedObjectCollection(linesListBox);
 
-                if (s != string.Empty)
-                {
-                    Clipboard.SetText(s);
-                    fileContentListView.SelectedItems.Clear();
-                }
+                    foreach (var line in selected)
+                    {
+                        s += line.ToString();
+                    }
+
+                    if (s != string.Empty)
+                    {
+                        Clipboard.SetText(s);
+                        linesListBox.ClearSelected();
+                    }
+                });
             }
         }
 
@@ -241,12 +245,10 @@ namespace FileFilter
             {
                 if (FileContent.Count == 0) return;
 
-                var fileContentCollection = new ListView.ListViewItemCollection(fileContentListView);
-                fileContentCollection.AddRange(FileContent.Select(x => new ListViewItem(x)).ToArray());
-
-                fileContentListView.Items.Clear();
-                fileContentListView.Items.AddRange(fileContentCollection);
-            });   
+                linesListBox.BeginUpdate();
+                (FileContent).ForEach(x => linesListBox.Items.Add(x));
+                linesListBox.EndUpdate();
+            });
         }
 
         private void highlightsButton_Click(object sender, EventArgs e)

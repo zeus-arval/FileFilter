@@ -28,129 +28,115 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Anna");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Artur");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.openFileExplorerButton = new System.Windows.Forms.Button();
-            this.fileNameLabel = new System.Windows.Forms.Label();
-            this.configureFilterButton = new System.Windows.Forms.Button();
-            this.filterButton = new System.Windows.Forms.Button();
-            this.removeFiltersButton = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.highlightsButton = new System.Windows.Forms.Button();
-            this.fileContentListView = new System.Windows.Forms.ListView();
-            this.SuspendLayout();
+            openFileDialog = new OpenFileDialog();
+            openFileExplorerButton = new Button();
+            fileNameLabel = new Label();
+            configureFilterButton = new Button();
+            filterButton = new Button();
+            removeFiltersButton = new Button();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            highlightsButton = new Button();
+            linesListBox = new ListBox();
+            SuspendLayout();
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog";
+            openFileDialog.FileName = "openFileDialog";
             // 
             // openFileExplorerButton
             // 
-            this.openFileExplorerButton.Location = new System.Drawing.Point(14, 21);
-            this.openFileExplorerButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.openFileExplorerButton.MaximumSize = new System.Drawing.Size(145, 31);
-            this.openFileExplorerButton.MinimumSize = new System.Drawing.Size(145, 31);
-            this.openFileExplorerButton.Name = "openFileExplorerButton";
-            this.openFileExplorerButton.Size = new System.Drawing.Size(145, 31);
-            this.openFileExplorerButton.TabIndex = 0;
-            this.openFileExplorerButton.Text = "Open File Exporer";
-            this.openFileExplorerButton.UseVisualStyleBackColor = true;
-            this.openFileExplorerButton.Click += new System.EventHandler(this.openFileExplorerButton_Click);
+            openFileExplorerButton.Location = new Point(12, 16);
+            openFileExplorerButton.MaximumSize = new Size(127, 23);
+            openFileExplorerButton.MinimumSize = new Size(127, 23);
+            openFileExplorerButton.Name = "openFileExplorerButton";
+            openFileExplorerButton.Size = new Size(127, 23);
+            openFileExplorerButton.TabIndex = 0;
+            openFileExplorerButton.Text = "Open File Exporer";
+            openFileExplorerButton.UseVisualStyleBackColor = true;
+            openFileExplorerButton.Click += openFileExplorerButton_Click;
             // 
             // fileNameLabel
             // 
-            this.fileNameLabel.AutoSize = true;
-            this.fileNameLabel.Location = new System.Drawing.Point(165, 27);
-            this.fileNameLabel.MinimumSize = new System.Drawing.Size(150, 0);
-            this.fileNameLabel.Name = "fileNameLabel";
-            this.fileNameLabel.Size = new System.Drawing.Size(150, 20);
-            this.fileNameLabel.TabIndex = 1;
-            this.fileNameLabel.Text = "C:/Program files/";
+            fileNameLabel.AutoSize = true;
+            fileNameLabel.Location = new Point(144, 20);
+            fileNameLabel.MinimumSize = new Size(131, 0);
+            fileNameLabel.Name = "fileNameLabel";
+            fileNameLabel.Size = new Size(131, 15);
+            fileNameLabel.TabIndex = 1;
+            fileNameLabel.Text = "C:/Program files/";
             // 
             // configureFilterButton
             // 
-            this.configureFilterButton.Location = new System.Drawing.Point(592, 21);
-            this.configureFilterButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.configureFilterButton.Name = "configureFilterButton";
-            this.configureFilterButton.Size = new System.Drawing.Size(123, 31);
-            this.configureFilterButton.TabIndex = 3;
-            this.configureFilterButton.Text = "Configure filter";
-            this.configureFilterButton.UseVisualStyleBackColor = true;
-            this.configureFilterButton.Click += new System.EventHandler(this.configureFilterButton_Click);
+            configureFilterButton.Location = new Point(518, 16);
+            configureFilterButton.Name = "configureFilterButton";
+            configureFilterButton.Size = new Size(108, 23);
+            configureFilterButton.TabIndex = 3;
+            configureFilterButton.Text = "Configure filter";
+            configureFilterButton.UseVisualStyleBackColor = true;
+            configureFilterButton.Click += configureFilterButton_Click;
             // 
             // filterButton
             // 
-            this.filterButton.Location = new System.Drawing.Point(722, 21);
-            this.filterButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(53, 31);
-            this.filterButton.TabIndex = 5;
-            this.filterButton.Text = "Filter";
-            this.filterButton.UseVisualStyleBackColor = true;
-            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
+            filterButton.Location = new Point(632, 16);
+            filterButton.Name = "filterButton";
+            filterButton.Size = new Size(46, 23);
+            filterButton.TabIndex = 5;
+            filterButton.Text = "Filter";
+            filterButton.UseVisualStyleBackColor = true;
+            filterButton.Click += filterButton_Click;
             // 
             // removeFiltersButton
             // 
-            this.removeFiltersButton.Location = new System.Drawing.Point(782, 21);
-            this.removeFiltersButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.removeFiltersButton.Name = "removeFiltersButton";
-            this.removeFiltersButton.Size = new System.Drawing.Size(119, 31);
-            this.removeFiltersButton.TabIndex = 6;
-            this.removeFiltersButton.Text = "Remove Filters";
-            this.removeFiltersButton.UseVisualStyleBackColor = true;
-            this.removeFiltersButton.Click += new System.EventHandler(this.removeFiltersButton_Click);
+            removeFiltersButton.Location = new Point(684, 16);
+            removeFiltersButton.Name = "removeFiltersButton";
+            removeFiltersButton.Size = new Size(104, 23);
+            removeFiltersButton.TabIndex = 6;
+            removeFiltersButton.Text = "Remove Filters";
+            removeFiltersButton.UseVisualStyleBackColor = true;
+            removeFiltersButton.Click += removeFiltersButton_Click;
             // 
             // highlightsButton
             // 
-            this.highlightsButton.Location = new System.Drawing.Point(477, 21);
-            this.highlightsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.highlightsButton.Name = "highlightsButton";
-            this.highlightsButton.Size = new System.Drawing.Size(109, 31);
-            this.highlightsButton.TabIndex = 7;
-            this.highlightsButton.Text = "Highlighting";
-            this.highlightsButton.UseVisualStyleBackColor = true;
-            this.highlightsButton.Click += new System.EventHandler(this.highlightsButton_Click);
+            highlightsButton.Location = new Point(417, 16);
+            highlightsButton.Name = "highlightsButton";
+            highlightsButton.Size = new Size(95, 23);
+            highlightsButton.TabIndex = 7;
+            highlightsButton.Text = "Highlighting";
+            highlightsButton.UseVisualStyleBackColor = true;
+            highlightsButton.Click += highlightsButton_Click;
             // 
-            // fileContentListView
+            // linesListBox
             // 
-            this.fileContentListView.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.fileContentListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fileContentListView.AutoArrange = false;
-            this.fileContentListView.FullRowSelect = true;
-            this.fileContentListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
-            this.fileContentListView.Location = new System.Drawing.Point(15, 72);
-            this.fileContentListView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.fileContentListView.Name = "fileContentListView";
-            this.fileContentListView.Size = new System.Drawing.Size(885, 511);
-            this.fileContentListView.TabIndex = 8;
-            this.fileContentListView.UseCompatibleStateImageBehavior = false;
+            linesListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            linesListBox.FormattingEnabled = true;
+            linesListBox.ItemHeight = 15;
+            linesListBox.Location = new Point(12, 55);
+            linesListBox.Margin = new Padding(10);
+            linesListBox.Name = "linesListBox";
+            linesListBox.SelectionMode = SelectionMode.MultiExtended;
+            linesListBox.Size = new Size(776, 379);
+            linesListBox.TabIndex = 8;
+            linesListBox.KeyDown += linesListBox_KeyDown;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 600);
-            this.Controls.Add(this.fileContentListView);
-            this.Controls.Add(this.highlightsButton);
-            this.Controls.Add(this.removeFiltersButton);
-            this.Controls.Add(this.filterButton);
-            this.Controls.Add(this.configureFilterButton);
-            this.Controls.Add(this.fileNameLabel);
-            this.Controls.Add(this.openFileExplorerButton);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "MainForm";
-            this.Text = "FilterProgram";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(linesListBox);
+            Controls.Add(highlightsButton);
+            Controls.Add(removeFiltersButton);
+            Controls.Add(filterButton);
+            Controls.Add(configureFilterButton);
+            Controls.Add(fileNameLabel);
+            Controls.Add(openFileExplorerButton);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
+            Name = "MainForm";
+            Text = "FilterProgram";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -163,6 +149,6 @@
         private Button removeFiltersButton;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Button highlightsButton;
-        private ListView fileContentListView;
+        private ListBox linesListBox;
     }
 }

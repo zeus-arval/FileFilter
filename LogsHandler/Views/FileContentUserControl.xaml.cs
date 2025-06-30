@@ -21,7 +21,7 @@ namespace LogsHandler.MVVM
     /// </summary>
     public partial class FileContentUserControl : UserControl
     {
-        public ObservableCollection ContentLines => FileContentViewModel.FilteredContent;
+        //public ObservableCollection ContentLines => FileContentViewModel.FilteredContent;
         public FileContentViewModel FileContentViewModel => (DataContext as FileContentViewModel)!;
 
         public FileContentUserControl()
@@ -29,7 +29,7 @@ namespace LogsHandler.MVVM
             InitializeComponent();
             Loaded += (sender, args) =>
             {
-                filteredContentItemsControl.ItemsSource
+                //filteredContentItemsControl.ItemsSource
                 FileContentViewModel.FileContentModel.FileteredLinesAreUpdated += FileContentModel_FileteredLinesAreUpdated;
             };
         }

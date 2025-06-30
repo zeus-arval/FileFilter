@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mvvm="clr-namespace:LogsHandler.MVVM"
+        xmlns:mvvm="clr-namespace:LogsHandler.MVVM" d:DataContext="{d:DesignInstance Type=mvvm:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Icon="Resources/filter.png" WindowStyle="ThreeDBorderWindow">
     <Grid>
@@ -15,10 +15,10 @@
         <Grid>
             <mvvm:ButtonsRowPanelUserControl DataContext="{Binding RowButtonsViewModel}"/>
         </Grid>
-        <mvvm:HeaderUserControl DataContext="{Binding }"/>
+        <!--<mvvm:HeaderUserControl DataContext="{Binding }"/>
 
         <mvvm:ContentUserControl Grid.Row="1" DataContext="{Binding }"/>
 
-        <mvvm:FooterUserControl Grid.Row="2" DataContext="{Binding }"/>
+        <mvvm:FooterUserControl Grid.Row="2" DataContext="{Binding }"/>-->
     </Grid>
 </Window>
